@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">NairobiJavaGeeks</string>
+    <string name="app_name">Nairobi Java Geeks</string>
+    <string name="developers">O Developers</string>
+
 </resources>
