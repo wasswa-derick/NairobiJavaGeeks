@@ -1,6 +1,10 @@
 # NairobiJavaGeeks
 Application to list all Java Developers in the Andela Nairobi Campus as provided by the GitHub API.
 
+<a href="https://codeclimate.com/github/wasswa-derick/NairobiJavaGeeks/maintainability"><img src="https://api.codeclimate.com/v1/badges/f4ad831b949a3803db8b/maintainability" /></a>
+
+[![CircleCI](https://circleci.com/gh/wasswa-derick/NairobiJavaGeeks/tree/ch-circleci-codeclimate-155738450.svg?style=svg)](https://circleci.com/gh/wasswa-derick/NairobiJavaGeeks/tree/ch-circleci-codeclimate-155738450)
+
 
 # Mockup Screens
 The Mockup (wireframes) screens of this application can be found at this URL https://marvelapp.com/9h06d0h
