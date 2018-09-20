@@ -1,5 +1,8 @@
 apply plugin: 'com.android.application'
 apply from: "$project.rootDir/config/jacoco.gradle"
+apply from: "$project.rootDir/tools/script-pmd.gradle"
+apply from: "$project.rootDir/tools/script-findbugs.gradle"
+apply plugin: 'checkstyle'
 
 
 android {
@@ -45,4 +48,10 @@ dependencies {
     //    Developer avatar
     implementation 'de.hdodenhof:circleimageview:2.1.0'
 
+}
+
+checkstyle {
+	toolVersion = '7.1'
+    config = rootProject.resources.text.fromFile('tool/rules-checkstyles.xml')
+    ignoreFailures = true
 }
