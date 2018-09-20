@@ -1,4 +1,6 @@
 apply plugin: 'com.android.application'
+apply from: "$project.rootDir/config/jacoco.gradle"
+
 
 android {
     compileSdkVersion 28
@@ -15,8 +17,21 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+
+        debug {
+            //add tests coverage using Jacoco
+            testCoverageEnabled true
+        }
+    }
+
+    testOptions {
+        unitTests {
+            includeAndroidResources = true
+            returnDefaultValues = true
+        }
     }
 }
+
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
