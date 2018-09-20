@@ -1,4 +1,4 @@
-package com.rosen.wasswaderick.nairobijavageeks;
+package com.rosen.wasswaderick.nairobijavageeks.activities;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -8,6 +8,8 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+
+import com.rosen.wasswaderick.nairobijavageeks.R;
 
 public class DetailActivity extends AppCompatActivity{
 
