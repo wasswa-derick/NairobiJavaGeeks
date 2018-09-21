@@ -1,4 +1,4 @@
-package com.rosen.wasswaderick.nairobijavageeks;
+package com.rosen.wasswaderick.nairobijavageeks.view;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;

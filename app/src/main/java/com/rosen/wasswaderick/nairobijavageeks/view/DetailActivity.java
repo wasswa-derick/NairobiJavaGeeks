@@ -1,4 +1,4 @@
-package com.rosen.wasswaderick.nairobijavageeks.activities;
+package com.rosen.wasswaderick.nairobijavageeks.view;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

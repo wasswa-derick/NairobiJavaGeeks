@@ -11,7 +11,7 @@
         android:largeHeap="true"
         android:theme="@style/AppTheme.NoActionBar">
 
-        <activity android:name=".activities.MainActivity">
+        <activity android:name=".view.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -20,12 +20,12 @@
         </activity>
 
         <activity
-            android:name=".activities.DetailActivity"
-            android:parentActivityName=".activities.MainActivity">
+            android:name=".view.DetailActivity"
+            android:parentActivityName=".view.MainActivity">
 
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.rosen.wasswaderick.nairobijavageeks.activities.MainActivity" />
+                android:value="com.rosen.wasswaderick.nairobijavageeks.view.MainActivity" />
 
         </activity>
 
