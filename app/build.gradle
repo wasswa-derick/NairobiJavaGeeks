@@ -7,6 +7,7 @@ apply plugin: 'checkstyle'
 
 android {
     compileSdkVersion 28
+
     defaultConfig {
         applicationId "com.rosen.wasswaderick.nairobijavageeks"
         minSdkVersion 15
