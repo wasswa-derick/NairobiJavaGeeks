@@ -2,4 +2,28 @@
     <string name="app_name">Nairobi Java Geeks</string>
     <string name="developers">O Developers</string>
 
+    <string-array name="usernames">
+        <item>\@Derick</item>
+        <item>\@UwaseLynnate</item>
+        <item>\@MbabaziJackline</item>
+    </string-array>
+
+    <string-array name="emails">
+        <item>derick.wasswa@andela.com</item>
+        <item>mbabazi.jackline@andela.com</item>
+        <item>uwase.lynnate@andela.com</item>
+    </string-array>
+
+    <string-array name="followers">
+        <item>34</item>
+        <item>4</item>
+        <item>1K</item>
+    </string-array>
+
+    <string-array name="following">
+        <item>4</item>
+        <item>411</item>
+        <item>32K</item>
+    </string-array>
+
 </resources>
