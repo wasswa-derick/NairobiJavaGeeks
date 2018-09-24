@@ -7,6 +7,7 @@ apply plugin: 'checkstyle'
 
 android {
     compileSdkVersion 28
+
     defaultConfig {
         applicationId "com.rosen.wasswaderick.nairobijavageeks"
         minSdkVersion 15
@@ -51,6 +52,10 @@ dependencies {
     implementation 'com.android.support:cardview-v7:28.0.0-rc02'
     implementation 'com.android.support:recyclerview-v7:28.0.0-rc02'
     implementation 'com.android.support:support-v4:28.0.0-rc02'
+
+    //    Retrofit Responses
+    implementation 'com.squareup.retrofit2:retrofit:2.4.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
 
     //    Retrofit Responses
     implementation 'com.squareup.retrofit2:retrofit:2.4.0'

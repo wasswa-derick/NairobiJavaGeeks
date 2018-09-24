@@ -36,3 +36,13 @@ The Mockup (wireframes) screens of this application can be found at this URL htt
 > `Share Developer Profile Intent`
 
 <img width="383" alt="share developer profile intent" src="https://user-images.githubusercontent.com/39955231/45686955-1e049b00-bb56-11e8-8b6e-a7d9e3e0ccda.png">
+
+
+## Running the Application on your device
+1. First change to a directory you want to would like the application to be then clone the GitHub repository.
+    > Run the command `git clone https://github.com/wasswa-derick/NairobiJavaGeeks.git`
+2. Launch Android Studio and Import the project from the directory where it was cloned.
+3. Login into GitHub and generate an access token.
+4. Open the ```Keys``` file under the project path ```/main/java/utils/Keys.java``` and replaces ```YOUR GITHUBAPI ACCESS TOKEN``` with your access token.
+5. Run the application.
+

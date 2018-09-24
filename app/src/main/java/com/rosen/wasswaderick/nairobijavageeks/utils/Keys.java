@@ -8,5 +8,6 @@ package com.rosen.wasswaderick.nairobijavageeks.utils;
 public interface Keys {
 
     String gitHubAPIBaseURL = "https://api.github.com/";
+    String ACCESS_TOKEN = "YOUR GITHUBAPI ACCESS TOKEN";
 
 }
