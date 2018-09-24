@@ -33,7 +33,6 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setAdapter(null);
         recyclerView.setLayoutManager(linearLayoutManager);
 
-
         developersCount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
