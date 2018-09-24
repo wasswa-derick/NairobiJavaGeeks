@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".DetailActivity"
+    tools:showIn="@layout/developer_layout">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:id="@+id/name"
+            android:text="kauma.bruce@andela.com"
+            android:layout_marginTop="@dimen/profile_text"
+            android:gravity="center_vertical|center_horizontal"
+            android:typeface="serif"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:id="@+id/role"
+            android:text="Software Developer at Andela"
+            android:layout_marginTop="@dimen/profile_text"
+            android:gravity="center_vertical|center_horizontal"
+            android:typeface="sans" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:id="@+id/location"
+            android:text="Nairobi, Kenya"
+            android:gravity="center_vertical|center_horizontal"
+            android:typeface="sans" />
+
+        <LinearLayout
+            android:gravity="center_vertical|center_horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:id="@+id/followers"
+                android:text="20K +"
+                android:textStyle="bold"
+                android:typeface="sans" />
+
+            <View
+                android:layout_width="4dp"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:id="@+id/followers_title"
+                android:text="Followers"
+                android:typeface="sans" />
+
+            <View
+                android:layout_width="@dimen/fab_margin"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:id="@+id/following"
+                android:text="9K +"
+                android:textStyle="bold"
+                android:typeface="sans" />
+
+            <View
+                android:layout_width="4dp"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:id="@+id/following_title"
+                android:text="Following"
+                android:typeface="sans" />
+
+        </LinearLayout>
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:id="@+id/repositories"
+            android:text="23 Repositories"
+            android:textStyle="bold"
+            android:gravity="center_vertical|center_horizontal"
+            android:typeface="sans" />
+
+
+        <TextView
+            android:id="@+id/bio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/fab_margin"
+            android:text="@string/large_text" />
+
+    </LinearLayout>
+
+
+
+</android.support.v4.widget.NestedScrollView>
