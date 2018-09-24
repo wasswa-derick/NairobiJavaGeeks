@@ -9,4 +9,6 @@ task pmd(type: Pmd) {
         html.enabled = true
         html.destination = "$project.buildDir/outputs/pmd/pmd.html"
     }
+
+    ignoreFailures = true
 }

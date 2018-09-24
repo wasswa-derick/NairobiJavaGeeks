@@ -1,0 +1,19 @@
+apply plugin: 'checkstyle'
+
+checkstyle {
+	toolVersion = '8.12'
+    config = rootProject.resources.text.fromFile('tool/rules-checkstyles.xml')
+    ignoreFailures = false
+}
+
+task checkstyle(type: Checkstyle) {
+
+    configFile file("$project.rootDir/tools/rules-checkstyles.xml")
+    configProperties.checkstyleSuppressionsPath = file(
+            "${project.rootDir}/config/quality/checkstyle/suppressions.xml"
+    ).absolutePath
+    source 'src'
+    include '**/*.java'
+    exclude '**/gen/**'
+    classpath = files()
+}

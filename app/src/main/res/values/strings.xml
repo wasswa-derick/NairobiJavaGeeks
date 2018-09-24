@@ -2,6 +2,8 @@
     <string name="app_name">Nairobi Java Geeks</string>
     <string name="developers">O Developers</string>
 
+    <string name="profile_image">Profile Image</string>
+
     <string-array name="usernames">
         <item>\@Derick</item>
         <item>\@UwaseLynnate</item>
