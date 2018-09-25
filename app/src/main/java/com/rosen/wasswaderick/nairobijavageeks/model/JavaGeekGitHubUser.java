@@ -62,6 +62,26 @@ public class JavaGeekGitHubUser implements Parcelable{
     };
 
 
+    protected JavaGeekGitHubUser(Parcel in) {
+        image = in.readString();
+        username = in.readString();
+        developEmail = in.readString();
+        followers = in.readString();
+        following = in.readString();
+    }
+
+    public static final Parcelable.Creator<JavaGeekGitHubUser> CREATOR = new Creator<JavaGeekGitHubUser>() {
+        @Override
+        public JavaGeekGitHubUser createFromParcel(Parcel in) {
+            return new JavaGeekGitHubUser(in);
+        }
+
+        @Override
+        public JavaGeekGitHubUser[] newArray(int size) {
+            return new JavaGeekGitHubUser[size];
+        }
+    };
+
     public String getImage() {
         return image;
     }
@@ -122,5 +142,19 @@ public class JavaGeekGitHubUser implements Parcelable{
         dest.writeString(company);
         dest.writeString(url);
         dest.writeString(htmlUrl);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(image);
+        dest.writeString(username);
+        dest.writeString(developEmail);
+        dest.writeString(followers);
+        dest.writeString(following);
     }
 }
