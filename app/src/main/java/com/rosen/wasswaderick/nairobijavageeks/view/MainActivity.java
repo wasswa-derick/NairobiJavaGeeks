@@ -12,10 +12,11 @@ import android.widget.TextView;
 
 import com.rosen.wasswaderick.nairobijavageeks.R;
 import com.rosen.wasswaderick.nairobijavageeks.model.JavaGeekGitHubUser;
+import com.rosen.wasswaderick.nairobijavageeks.adapter.GitHubUsersAdapter;
+import com.rosen.wasswaderick.nairobijavageeks.model.User;
+import com.rosen.wasswaderick.nairobijavageeks.presenter.GitHubUserPresenter;
 
 import java.util.ArrayList;
-import com.rosen.wasswaderick.nairobijavageeks.adapter.GitHubUsersAdapter;
-import com.rosen.wasswaderick.nairobijavageeks.presenter.GitHubUserPresenter;
 
 
 public class MainActivity extends AppCompatActivity implements GitHubUserView{
