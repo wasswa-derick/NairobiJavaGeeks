@@ -19,7 +19,6 @@
         android:textSize="14sp"
         android:paddingTop="4dp"
         android:paddingBottom="4dp"
-        android:text="@string/developers"
         android:textColor="@color/colorSecondaryText" />
 
 

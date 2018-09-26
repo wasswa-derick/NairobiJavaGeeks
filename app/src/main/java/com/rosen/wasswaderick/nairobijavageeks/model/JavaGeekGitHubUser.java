@@ -16,28 +16,30 @@ public class JavaGeekGitHubUser implements Parcelable{
     @Expose
     private String username;
 
-    @SerializedName("email")
+    @SerializedName("company")
     @Expose
-    private String developEmail;
+    private String company;
 
-    @SerializedName("followers_url")
+    @SerializedName("url")
     @Expose
-    private String followers;
+    private String url;
 
-    @SerializedName("following_url")
+    @SerializedName("html_url")
     @Expose
-    private String following;
+    private String htmlUrl;
+
+    private User details;
 
 
     protected JavaGeekGitHubUser(Parcel in) {
         image = in.readString();
         username = in.readString();
-        developEmail = in.readString();
-        followers = in.readString();
-        following = in.readString();
+        company = in.readString();
+        url = in.readString();
+        htmlUrl = in.readString();
     }
 
-    public static final Parcelable.Creator<JavaGeekGitHubUser> CREATOR = new Creator<JavaGeekGitHubUser>() {
+    public static final Creator<JavaGeekGitHubUser> CREATOR = new Creator<JavaGeekGitHubUser>() {
         @Override
         public JavaGeekGitHubUser createFromParcel(Parcel in) {
             return new JavaGeekGitHubUser(in);
@@ -65,28 +67,36 @@ public class JavaGeekGitHubUser implements Parcelable{
         this.username = username;
     }
 
-    public String getDevelopEmail() {
-        return developEmail;
+    public String getCompany() {
+        return company;
     }
 
-    public void setDevelopEmail(String developEmail) {
-        this.developEmail = developEmail;
+    public void setCompany(String company) {
+        this.company = company;
     }
 
-    public String getFollowers() {
-        return followers;
+    public String getUrl() {
+        return url;
     }
 
-    public void setFollowers(String followers) {
-        this.followers = followers;
+    public void setUrl(String url) {
+        this.url = url;
     }
 
-    public String getFollowing() {
-        return following;
+    public String getHtmlUrl() {
+        return htmlUrl;
     }
 
-    public void setFollowing(String following) {
-        this.following = following;
+    public void setHtmlUrl(String htmlUrl) {
+        this.htmlUrl = htmlUrl;
+    }
+
+    public User getDetails() {
+        return details;
+    }
+
+    public void setDetails(User details) {
+        this.details = details;
     }
 
     @Override
@@ -98,8 +108,8 @@ public class JavaGeekGitHubUser implements Parcelable{
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(image);
         dest.writeString(username);
-        dest.writeString(developEmail);
-        dest.writeString(followers);
-        dest.writeString(following);
+        dest.writeString(company);
+        dest.writeString(url);
+        dest.writeString(htmlUrl);
     }
 }

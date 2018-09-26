@@ -14,15 +14,19 @@ import com.rosen.wasswaderick.nairobijavageeks.R;
 import com.rosen.wasswaderick.nairobijavageeks.model.JavaGeekGitHubUser;
 
 import java.util.ArrayList;
+import com.rosen.wasswaderick.nairobijavageeks.adapter.GitHubUsersAdapter;
+import com.rosen.wasswaderick.nairobijavageeks.presenter.GitHubUserPresenter;
 
-public class MainActivity extends AppCompatActivity {
 
-
+public class MainActivity extends AppCompatActivity implements GitHubUserView{
     RecyclerView recyclerView;
     TextView developersCount;
     Toolbar toolbar;
-
+    GitHubUsersAdapter gitHubUsersAdapter;
+    ArrayList<JavaGeekGitHubUser> javaGeekGitHubUserArrayList;
     LinearLayoutManager linearLayoutManager;
+    PresenterView presenterView;
+
     final String USERS_KEY = "users";
     ArrayList<JavaGeekGitHubUser> javaGeekGitHubUserList;
     public final static String RECYCLER_VIEW_STATE_KEY = "recycler_view_state";
@@ -36,8 +40,9 @@ public class MainActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.developers_list);
         developersCount = findViewById(R.id.developers_count);
         toolbar = findViewById(R.id.toolbar);
-
         setSupportActionBar(toolbar);
+        presenterView = new GitHubUserPresenter(this);
+
 
         if (savedInstanceState != null || !savedInstanceState.containsKey(USERS_KEY)) {
             javaGeekGitHubUserList = new ArrayList<>();
@@ -83,5 +88,19 @@ public class MainActivity extends AppCompatActivity {
         if (listState != null) {
             linearLayoutManager.onRestoreInstanceState(listState);
         }
+    }
+
+
+    @Override
+    public void renderGitHubUsers(ArrayList<JavaGeekGitHubUser> javaGeekGitHubUsers) {
+        javaGeekGitHubUserArrayList = javaGeekGitHubUsers;
+        linearLayoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
+        gitHubUsersAdapter = new GitHubUsersAdapter(getApplicationContext(), javaGeekGitHubUsers);
+        recyclerView.setAdapter(gitHubUsersAdapter);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        gitHubUsersAdapter.notifyDataSetChanged();
+
+        String countDevelopers = javaGeekGitHubUsers.size() + " Developers";
+        developersCount.setText(countDevelopers);
     }
 }
