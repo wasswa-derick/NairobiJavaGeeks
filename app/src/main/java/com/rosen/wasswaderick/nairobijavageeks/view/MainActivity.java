@@ -45,23 +45,17 @@ public class MainActivity extends AppCompatActivity implements GitHubUserView{
         presenterView = new GitHubUserPresenter(this);
 
 
-        if (savedInstanceState != null || !savedInstanceState.containsKey(USERS_KEY)) {
+        if (savedInstanceState != null) {
             javaGeekGitHubUserList = new ArrayList<>();
-            // Load the Data from the API
-        }else{
             javaGeekGitHubUserList = savedInstanceState.getParcelableArrayList(USERS_KEY);
+        }else{
+            // Load the Data from the API
+            presenterView.fetchNairobiJavaGitHubUsers();
         }
         linearLayoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setAdapter(null);
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        developersCount.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, DetailActivity.class);
-                startActivity(intent);
-            }
-        });
     }
 
     @Override
@@ -103,5 +97,27 @@ public class MainActivity extends AppCompatActivity implements GitHubUserView{
 
         String countDevelopers = javaGeekGitHubUsers.size() + " Developers";
         developersCount.setText(countDevelopers);
+
+        // Recycler View On Click Handler
+        launchDeveloperDetails();
     }
+
+    public void launchDeveloperDetails(){
+        recyclerView.addOnItemTouchListener(new RecyclerViewItemClick(getApplicationContext(), new RecyclerViewItemClick.onItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                JavaGeekGitHubUser user = javaGeekGitHubUserArrayList.get(position);
+
+                Intent intent = new Intent(MainActivity.this, DetailActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("username", user.getUsername());
+                bundle.putString("image", user.getImage());
+                bundle.putString("url", user.getUrl());
+                bundle.putString("htmlUrl", user.getHtmlUrl());
+                intent.putExtra("data", bundle);
+                startActivity(intent);
+            }
+        }));
+    }
+
 }
