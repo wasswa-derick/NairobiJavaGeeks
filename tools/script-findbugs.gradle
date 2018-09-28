@@ -6,6 +6,8 @@ task findbugs(type: FindBugs) {
 
     classes = files("$project.buildDir/intermediates/classes")
     source 'src'
+    include '**/*.java'
+    exclude '**/gen/**'
     classpath = files()
 
     effort 'max'

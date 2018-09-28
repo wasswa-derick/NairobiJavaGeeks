@@ -9,6 +9,6 @@ import com.rosen.wasswaderick.nairobijavageeks.model.JavaGeekGitHubUser;
 public class JavaGeekGitHubUserResponse {
 
     @SerializedName("users")
-    private List<JavaGeekGitHubUser> users;
+    List<JavaGeekGitHubUser> users;
 
 }
