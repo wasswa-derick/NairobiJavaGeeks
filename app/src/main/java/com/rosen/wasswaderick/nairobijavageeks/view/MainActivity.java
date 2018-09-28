@@ -1,6 +1,7 @@
 package com.rosen.wasswaderick.nairobijavageeks.view;
 
 import android.content.Intent;
+import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,6 +11,9 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.rosen.wasswaderick.nairobijavageeks.R;
+import com.rosen.wasswaderick.nairobijavageeks.model.JavaGeekGitHubUser;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -17,6 +21,12 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     TextView developersCount;
     Toolbar toolbar;
+
+    LinearLayoutManager linearLayoutManager;
+    final String USERS_KEY = "users";
+    ArrayList<JavaGeekGitHubUser> javaGeekGitHubUserList;
+    public final static String RECYCLER_VIEW_STATE_KEY = "recycler_view_state";
+    Parcelable listState;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +39,13 @@ public class MainActivity extends AppCompatActivity {
 
         setSupportActionBar(toolbar);
 
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
+        if (savedInstanceState != null || !savedInstanceState.containsKey(USERS_KEY)) {
+            javaGeekGitHubUserList = new ArrayList<>();
+            // Load the Data from the API
+        }else{
+            javaGeekGitHubUserList = savedInstanceState.getParcelableArrayList(USERS_KEY);
+        }
+        linearLayoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setAdapter(null);
         recyclerView.setLayoutManager(linearLayoutManager);
 
@@ -40,5 +56,32 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelableArrayList(USERS_KEY, javaGeekGitHubUserList);
+
+        // Save RECYCLER VIEW state
+        listState = linearLayoutManager.onSaveInstanceState();
+        outState.putParcelable(RECYCLER_VIEW_STATE_KEY, listState);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+
+        // Retrieve list state and list/item positions
+        if(savedInstanceState != null)
+            listState = savedInstanceState.getParcelable(RECYCLER_VIEW_STATE_KEY);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (listState != null) {
+            linearLayoutManager.onRestoreInstanceState(listState);
+        }
     }
 }
