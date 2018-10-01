@@ -3,10 +3,12 @@ package com.rosen.wasswaderick.nairobijavageeks.view;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
+import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
 import android.view.animation.AnimationUtils;
@@ -22,11 +24,23 @@ import com.rosen.wasswaderick.nairobijavageeks.presenter.UserDetailPresenter;
 public class DetailActivity extends AppCompatActivity implements UserDetailView {
 
     ImageView profileImage;
-    TextView name, role, location, followers, following, repositories, bio, htmlURL;
+    TextView name;
+    TextView role;
+    TextView location;
+    TextView followers;
+    TextView following;
+    TextView repositories;
+    TextView bio;
+    TextView htmlURL;
+
+    FloatingActionButton share;
 
     PresenterDetailView presenterDetailView;
     User userDetails;
-    String username, image, htmlUrlData;
+    String username;
+    String image;
+    String htmlUrlData;
+
     final String USER_DETAILS_KEY = "user";
 
     @Override
@@ -48,6 +62,8 @@ public class DetailActivity extends AppCompatActivity implements UserDetailView 
         repositories = findViewById(R.id.repositories);
         htmlURL = findViewById(R.id.htmlUrl);
         bio = findViewById(R.id.bio);
+
+        share = findViewById(R.id.share);
 
         Intent intent = getIntent();
         Bundle bundle = intent.getBundleExtra("data");
@@ -84,6 +100,10 @@ public class DetailActivity extends AppCompatActivity implements UserDetailView 
             // Load the Data from the API
             presenterDetailView.fetchUserDetails(username);
         }
+
+
+        // Profile Sharing
+        shareButtonClickHandler();
 
     }
 
@@ -124,5 +144,19 @@ public class DetailActivity extends AppCompatActivity implements UserDetailView 
         following.setText(followingData);
         repositories.setText(publicRepoData);
         bio.setText(user.getBio());
+    }
+
+    public void shareButtonClickHandler(){
+        share.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                String content = "Check out this awesome developer @" + username + ", " + htmlUrlData + ".";
+                Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                shareIntent.setType("text/plain");
+                shareIntent.putExtra(Intent.EXTRA_TEXT, content);
+                startActivity(Intent.createChooser(shareIntent, "Share Profile"));
+            }
+        });
     }
 }
