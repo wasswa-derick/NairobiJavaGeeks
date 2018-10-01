@@ -68,38 +68,4 @@ public class GitHubUserPresenter implements PresenterView{
                 });
     }
 
-    @Override
-    public User fetchUserDetails(String username){
-        final User[] user = {new User()};
-        retrofitGitHubService
-                .getGitHubUserAPI()
-                .getUserDetail(username)
-                .enqueue(new Callback<User>() {
-                    @Override
-                    public void onResponse(Call<User> call, Response<User> response) {
-
-                        if (response.isSuccessful()) {
-                            user[0] = response.body();
-                            Log.d("users", response.body().getBio());
-                        } else {
-                            Log.d("status", response.errorBody().toString());
-                            Log.d("header", response.headers().toString());
-                            Log.d("message", response.message());
-                            Log.d("message", response.code() + "");
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<User> call, Throwable t) {
-                        try {
-                            Log.d("message", t.getMessage());
-                            throw new InterruptedException("Something went wrong!");
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                });
-        return user[0];
-    }
-
 }

@@ -108,11 +108,23 @@
             android:gravity="center_vertical|center_horizontal"
             android:typeface="sans" />
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:id="@+id/htmlUrl"
+            android:textStyle="bold"
+            android:linksClickable="true"
+            android:autoLink="web"
+            android:gravity="center_vertical|center_horizontal"
+            android:typeface="sans" />
 
         <TextView
             android:id="@+id/bio"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="20sp"
             android:layout_margin="@dimen/fab_margin" />
 
     </LinearLayout>

@@ -1,5 +1,8 @@
 package com.rosen.wasswaderick.nairobijavageeks.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -8,7 +11,7 @@ import com.google.gson.annotations.SerializedName;
  * Github: @wasswa-derick
  * Andela (Kampala, Uganda)
  */
-public class User {
+public class User implements Parcelable{
 
     @SerializedName("name")
     @Expose
@@ -41,6 +44,29 @@ public class User {
     @SerializedName("public_repos")
     @Expose
     private String publicRepos;
+
+    protected User(Parcel in) {
+        name = in.readString();
+        company = in.readString();
+        blog = in.readString();
+        location = in.readString();
+        bio = in.readString();
+        followers = in.readString();
+        following = in.readString();
+        publicRepos = in.readString();
+    }
+
+    public static final Creator<User> CREATOR = new Creator<User>() {
+        @Override
+        public User createFromParcel(Parcel in) {
+            return new User(in);
+        }
+
+        @Override
+        public User[] newArray(int size) {
+            return new User[size];
+        }
+    };
 
     public String getName() {
         return name;
@@ -104,5 +130,22 @@ public class User {
 
     public void setPublicRepos(String publicRepos) {
         this.publicRepos = publicRepos;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(name);
+        dest.writeString(company);
+        dest.writeString(blog);
+        dest.writeString(location);
+        dest.writeString(bio);
+        dest.writeString(followers);
+        dest.writeString(following);
+        dest.writeString(publicRepos);
     }
 }

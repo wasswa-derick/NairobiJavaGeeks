@@ -1,6 +1,7 @@
 package com.rosen.wasswaderick.nairobijavageeks.view;
 
 import com.rosen.wasswaderick.nairobijavageeks.model.JavaGeekGitHubUser;
+import com.rosen.wasswaderick.nairobijavageeks.model.User;
 
 import java.util.ArrayList;
 
