@@ -1,5 +1,6 @@
 package com.rosen.wasswaderick.nairobijavageeks.view;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -41,6 +42,8 @@ public class DetailActivity extends AppCompatActivity implements UserDetailView 
     String image;
     String htmlUrlData;
 
+    ProgressDialog progressDialog;
+
     final String USER_DETAILS_KEY = "user";
 
     @Override
@@ -52,6 +55,7 @@ public class DetailActivity extends AppCompatActivity implements UserDetailView 
         setSupportActionBar(toolbar);
 
         presenterDetailView = new UserDetailPresenter(this);
+        progressDialog = new ProgressDialog(DetailActivity.this);
 
         profileImage = findViewById(R.id.profile_image);
         name = findViewById(R.id.name);
@@ -99,6 +103,7 @@ public class DetailActivity extends AppCompatActivity implements UserDetailView 
         }else{
             // Load the Data from the API
             presenterDetailView.fetchUserDetails(username);
+            showProgressDialog();
         }
 
 
@@ -126,6 +131,7 @@ public class DetailActivity extends AppCompatActivity implements UserDetailView 
 
     @Override
     public void renderGitHubUsers(User user) {
+        dismissProgressDialog();
 
         userDetails = user;
         name.setText(user.getName());
@@ -158,5 +164,16 @@ public class DetailActivity extends AppCompatActivity implements UserDetailView 
                 startActivity(Intent.createChooser(shareIntent, "Share Profile"));
             }
         });
+    }
+
+    public void showProgressDialog(){
+        progressDialog.setTitle("Loading");
+        progressDialog.setMessage("Wait while loading data ...");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+    }
+
+    public void dismissProgressDialog(){
+        progressDialog.dismiss();
     }
 }

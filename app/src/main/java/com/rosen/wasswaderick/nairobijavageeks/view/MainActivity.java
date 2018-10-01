@@ -1,10 +1,12 @@
 package com.rosen.wasswaderick.nairobijavageeks.view;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Parcelable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -13,23 +15,25 @@ import android.widget.TextView;
 import com.rosen.wasswaderick.nairobijavageeks.R;
 import com.rosen.wasswaderick.nairobijavageeks.model.JavaGeekGitHubUser;
 import com.rosen.wasswaderick.nairobijavageeks.adapter.GitHubUsersAdapter;
-import com.rosen.wasswaderick.nairobijavageeks.model.User;
 import com.rosen.wasswaderick.nairobijavageeks.presenter.GitHubUserPresenter;
 
 import java.util.ArrayList;
 
 
-public class MainActivity extends AppCompatActivity implements GitHubUserView{
+public class MainActivity extends AppCompatActivity implements GitHubUserView, SwipeRefreshLayout.OnRefreshListener{
     RecyclerView recyclerView;
     TextView developersCount;
     Toolbar toolbar;
+    SwipeRefreshLayout swipeRefreshLayout;
+
     GitHubUsersAdapter gitHubUsersAdapter;
     ArrayList<JavaGeekGitHubUser> javaGeekGitHubUserArrayList;
-    LinearLayoutManager linearLayoutManager;
+    GridLayoutManager gridLayoutManager;
     PresenterView presenterView;
 
+    ProgressDialog progressDialog;
+
     final String USERS_KEY = "users";
-    ArrayList<JavaGeekGitHubUser> javaGeekGitHubUserList;
     public final static String RECYCLER_VIEW_STATE_KEY = "recycler_view_state";
     Parcelable listState;
 
@@ -38,33 +42,41 @@ public class MainActivity extends AppCompatActivity implements GitHubUserView{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        swipeRefreshLayout = findViewById(R.id.swipe_refresh);
+        swipeRefreshLayout.setOnRefreshListener(this);
+        swipeRefreshLayout.setColorSchemeResources(
+                R.color.colorPrimaryDark,
+                R.color.colorPrimary,
+                R.color.colorAccent);
+
         recyclerView = findViewById(R.id.developers_list);
         developersCount = findViewById(R.id.developers_count);
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         presenterView = new GitHubUserPresenter(this);
-
+        progressDialog = new ProgressDialog(MainActivity.this);
+        gridLayoutManager = new GridLayoutManager(this, 2);
 
         if (savedInstanceState != null) {
-            javaGeekGitHubUserList = new ArrayList<>();
-            javaGeekGitHubUserList = savedInstanceState.getParcelableArrayList(USERS_KEY);
+            javaGeekGitHubUserArrayList = new ArrayList<>();
+            javaGeekGitHubUserArrayList = savedInstanceState.getParcelableArrayList(USERS_KEY);
+            renderGitHubUsers(javaGeekGitHubUserArrayList);
         }else{
             // Load the Data from the API
             presenterView.fetchNairobiJavaGitHubUsers();
+            showProgressDialog();
         }
-        linearLayoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
-        recyclerView.setAdapter(null);
-        recyclerView.setLayoutManager(linearLayoutManager);
 
     }
+
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putParcelableArrayList(USERS_KEY, javaGeekGitHubUserList);
+        outState.putParcelableArrayList(USERS_KEY, javaGeekGitHubUserArrayList);
 
         // Save RECYCLER VIEW state
-        listState = linearLayoutManager.onSaveInstanceState();
+        listState = gridLayoutManager.onSaveInstanceState();
         outState.putParcelable(RECYCLER_VIEW_STATE_KEY, listState);
     }
 
@@ -81,18 +93,21 @@ public class MainActivity extends AppCompatActivity implements GitHubUserView{
     protected void onResume() {
         super.onResume();
         if (listState != null) {
-            linearLayoutManager.onRestoreInstanceState(listState);
+            gridLayoutManager.onRestoreInstanceState(listState);
         }
     }
 
-
     @Override
     public void renderGitHubUsers(ArrayList<JavaGeekGitHubUser> javaGeekGitHubUsers) {
+
+        // stopping swipe refresh
+        dismissProgressDialog();
+        swipeRefreshLayout.setRefreshing(false);
+
         javaGeekGitHubUserArrayList = javaGeekGitHubUsers;
-        linearLayoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
         gitHubUsersAdapter = new GitHubUsersAdapter(getApplicationContext(), javaGeekGitHubUsers);
         recyclerView.setAdapter(gitHubUsersAdapter);
-        recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView.setLayoutManager(gridLayoutManager);
         gitHubUsersAdapter.notifyDataSetChanged();
 
         String countDevelopers = javaGeekGitHubUsers.size() + " Developers";
@@ -120,4 +135,20 @@ public class MainActivity extends AppCompatActivity implements GitHubUserView{
         }));
     }
 
+    @Override
+    public void onRefresh() {
+        presenterView.fetchNairobiJavaGitHubUsers();
+    }
+
+    public void showProgressDialog(){
+        progressDialog.setTitle("Loading");
+        progressDialog.setMessage("Wait while loading users ...");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+    }
+
+    public void dismissProgressDialog(){
+        progressDialog.dismiss();
+    }
 }
+

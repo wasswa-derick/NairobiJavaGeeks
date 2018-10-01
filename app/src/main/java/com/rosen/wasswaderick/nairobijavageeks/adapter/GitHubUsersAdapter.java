@@ -37,7 +37,7 @@ public class GitHubUsersAdapter extends RecyclerView.Adapter<GitHubUsersAdapter.
     @NonNull
     @Override
     public GitHubUsersViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        return new GitHubUsersViewHolder(layoutInflater.inflate(R.layout.develop_row, viewGroup, false));
+        return new GitHubUsersViewHolder(layoutInflater.inflate(R.layout.develop_row_grid, viewGroup, false));
     }
 
     @Override
