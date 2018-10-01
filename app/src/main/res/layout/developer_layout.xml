@@ -30,7 +30,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:scaleType="centerCrop"
-                android:src="@drawable/developers"
                 android:alpha="0.80"
                 app:layout_scrollFlags="scroll|enterAlways|enterAlwaysCollapsed"
                 android:minHeight="120dp"
