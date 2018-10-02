@@ -93,7 +93,7 @@ public class DetailActivity extends AppCompatActivity implements UserDetailView 
         AnimationSet animationSet = new AnimationSet(true);
         Animation animationZoom = AnimationUtils.loadAnimation(this, R.anim.zoom_in);
         animationSet.addAnimation(animationZoom);
-        profileImage.setAnimation(animationSet);
+        // profileImage.setAnimation(animationSet);
 
         // Retrieve the Developer data
         if (savedInstanceState != null) {

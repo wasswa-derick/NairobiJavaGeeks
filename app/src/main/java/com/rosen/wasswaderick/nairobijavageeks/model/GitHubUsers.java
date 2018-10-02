@@ -20,6 +20,13 @@ public class GitHubUsers {
     @Expose
     private ArrayList<JavaGeekGitHubUser> users;
 
+    public GitHubUsers(){}
+
+    public GitHubUsers(String developers, ArrayList<JavaGeekGitHubUser> users) {
+        this.developers = developers;
+        this.users = users;
+    }
+
     public String getDevelopers() {
         return developers;
     }

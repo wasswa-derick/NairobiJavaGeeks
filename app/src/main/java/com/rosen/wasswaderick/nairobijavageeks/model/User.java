@@ -47,7 +47,18 @@ public class User implements Parcelable{
 
     public User(){}
 
-    public User(Parcel in) {
+    public User(String name, String company, String blog, String location, String bio, String followers, String following, String publicRepos) {
+        this.name = name;
+        this.company = company;
+        this.blog = blog;
+        this.location = location;
+        this.bio = bio;
+        this.followers = followers;
+        this.following = following;
+        this.publicRepos = publicRepos;
+    }
+
+    protected User(Parcel in) {
         name = in.readString();
         company = in.readString();
         blog = in.readString();

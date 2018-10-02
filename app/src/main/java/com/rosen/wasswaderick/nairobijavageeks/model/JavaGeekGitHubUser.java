@@ -30,6 +30,16 @@ public class JavaGeekGitHubUser implements Parcelable{
 
     private User details;
 
+    public JavaGeekGitHubUser(){}
+
+    public JavaGeekGitHubUser(String image, String username, String company, String url, String htmlUrl, User details) {
+        this.image = image;
+        this.username = username;
+        this.company = company;
+        this.url = url;
+        this.htmlUrl = htmlUrl;
+        this.details = details;
+    }
 
     protected JavaGeekGitHubUser(Parcel in) {
         image = in.readString();
