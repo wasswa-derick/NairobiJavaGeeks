@@ -36,14 +36,8 @@ public class UserDetailPresenter implements PresenterDetailView {
                 .enqueue(new Callback<User>() {
                     @Override
                     public void onResponse(Call<User> call, Response<User> response) {
-
                         if (response.isSuccessful()) {
                             userDetailView.renderGitHubUsers(response.body());
-                        } else {
-                            Log.d("status", response.errorBody().toString());
-                            Log.d("header", response.headers().toString());
-                            Log.d("message", response.message());
-                            Log.d("message", response.code() + "");
                         }
                     }
 

@@ -37,6 +37,11 @@ ext {
     junitVersion = '4.12'
     testRunnerVersion = '1.0.2'
     expressoVersion = '3.0.2'
+
+    mockitoVersionCore = '2.10.0'
+    mockitoInline = '2.8.9'
+    testRulesVersion = '0.5'
+
 }
 
 task clean(type: Delete) {
