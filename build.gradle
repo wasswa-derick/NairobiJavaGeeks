@@ -22,6 +22,23 @@ allprojects {
     }
 }
 
+ext {
+    myBuildToolsVersion="28.0.0"
+    myMinSdkVersion=16
+    myTargetSdkVersion=28
+    myCompileSdkVersion=28
+
+    // dependencies versions
+    supportLibraryVersion = '28.0.0'
+    retrofitVersion = '2.4.0'
+    glideVersion = '4.8.0'
+    circleImageVersion = '2.1.0'
+    constraintLayoutVersion = '1.1.3'
+    junitVersion = '4.12'
+    testRunnerVersion = '1.0.2'
+    expressoVersion = '3.0.2'
+}
+
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
