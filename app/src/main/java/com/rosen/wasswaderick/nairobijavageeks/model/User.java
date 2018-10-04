@@ -45,7 +45,9 @@ public class User implements Parcelable{
     @Expose
     private String publicRepos;
 
-    protected User(Parcel in) {
+    public User(){}
+
+    public User(Parcel in) {
         name = in.readString();
         company = in.readString();
         blog = in.readString();
