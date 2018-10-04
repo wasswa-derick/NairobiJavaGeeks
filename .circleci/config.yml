@@ -4,7 +4,7 @@ jobs:
   build:
     working_directory: ~/NairobiJavaGeeks
     docker:
-      - image: circleci/android:api-25-alpha
+      - image: circleci/android:api-28-node8-alpha
     environment:
       JVM_OPTS: -Xmx3200m
       CC_TEST_REPORTER_ID: c342bb63e793195a677321a1d94de234ce26390f1ce3d387b0b56a9ed63df9e4
@@ -22,6 +22,14 @@ jobs:
           paths:
             - ~/.gradle
           key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
+#      - run:
+#          name: Accept SDK licenses
+#          command: sdkmanager --update && yes | sdkmanager --licenses
+
+      - run:
+          name: Approve license for build tools
+          command: (echo y; echo y; echo y; echo y; echo y; echo y) | $ANDROID_HOME/tools/bin/sdkmanager --licenses
+
       - run:
           name: Setup emulator
           command: sdkmanager "system-images;android-22;default;armeabi-v7a" && echo "no" | avdmanager create avd -n test -k "system-images;android-22;default;armeabi-v7a"
@@ -35,7 +43,7 @@ jobs:
             # wait for it to have booted
             circle-android wait-for-boot
             # unlock the emulator screen
-            sleep 30
+            sleep 1
             adb shell input keyevent 82
       - run:
           name: Run Tests
