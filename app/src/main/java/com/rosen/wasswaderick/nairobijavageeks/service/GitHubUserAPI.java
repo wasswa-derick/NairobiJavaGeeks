@@ -1,9 +1,7 @@
 package com.rosen.wasswaderick.nairobijavageeks.service;
 
-import com.rosen.wasswaderick.nairobijavageeks.BuildConfig;
 import com.rosen.wasswaderick.nairobijavageeks.model.GitHubUsers;
 import com.rosen.wasswaderick.nairobijavageeks.model.User;
-import com.rosen.wasswaderick.nairobijavageeks.utils.Keys;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

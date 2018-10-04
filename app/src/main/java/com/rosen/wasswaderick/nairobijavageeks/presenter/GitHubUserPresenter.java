@@ -46,11 +46,6 @@ public class GitHubUserPresenter implements PresenterView{
                             if (users != null) {
                                 gitHubUserView.renderGitHubUsers(users);
                             }
-
-                        } else {
-                            Log.d("status", response.errorBody().toString());
-                            Log.d("status", response.headers().toString());
-                            Log.d("status", response.message());
                         }
                     }
 

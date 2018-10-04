@@ -49,7 +49,7 @@ public class JavaGeekGitHubUser implements Parcelable{
         htmlUrl = in.readString();
     }
 
-    public static final Creator<JavaGeekGitHubUser> CREATOR = new Creator<JavaGeekGitHubUser>() {
+    public static final Parcelable.Creator<JavaGeekGitHubUser> CREATOR = new Creator<JavaGeekGitHubUser>() {
         @Override
         public JavaGeekGitHubUser createFromParcel(Parcel in) {
             return new JavaGeekGitHubUser(in);
@@ -60,6 +60,7 @@ public class JavaGeekGitHubUser implements Parcelable{
             return new JavaGeekGitHubUser[size];
         }
     };
+
 
     public String getImage() {
         return image;
