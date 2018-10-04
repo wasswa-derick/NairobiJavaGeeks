@@ -4,13 +4,11 @@ import android.util.Log;
 
 import com.rosen.wasswaderick.nairobijavageeks.model.GitHubUsers;
 import com.rosen.wasswaderick.nairobijavageeks.model.JavaGeekGitHubUser;
-import com.rosen.wasswaderick.nairobijavageeks.model.User;
 import com.rosen.wasswaderick.nairobijavageeks.service.RetrofitGitHubService;
 import com.rosen.wasswaderick.nairobijavageeks.view.GitHubUserView;
 import com.rosen.wasswaderick.nairobijavageeks.view.PresenterView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;

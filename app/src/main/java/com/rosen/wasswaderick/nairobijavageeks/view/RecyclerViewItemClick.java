@@ -41,12 +41,9 @@ public class RecyclerViewItemClick implements RecyclerView.OnItemTouchListener{
     }
 
     @Override
-    public void onTouchEvent(RecyclerView recyclerView, MotionEvent motionEvent) {
-        //
-    }
+    public void onTouchEvent(RecyclerView recyclerView, MotionEvent motionEvent) {}
 
     @Override
-    public void onRequestDisallowInterceptTouchEvent(boolean b) {
-    }
+    public void onRequestDisallowInterceptTouchEvent(boolean b) {}
 
 }

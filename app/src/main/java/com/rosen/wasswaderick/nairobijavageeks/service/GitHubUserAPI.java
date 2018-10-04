@@ -1,5 +1,6 @@
 package com.rosen.wasswaderick.nairobijavageeks.service;
 
+import com.rosen.wasswaderick.nairobijavageeks.BuildConfig;
 import com.rosen.wasswaderick.nairobijavageeks.model.GitHubUsers;
 import com.rosen.wasswaderick.nairobijavageeks.model.User;
 import com.rosen.wasswaderick.nairobijavageeks.utils.Keys;
@@ -15,10 +16,10 @@ import retrofit2.http.Path;
  */
 public interface GitHubUserAPI {
 
-    @GET("search/users?q=language:java+location:nairobi&access_token=" + Keys.ACCESS_TOKEN)
+    @GET("search/users?q=language:java+location:nairobi")
     Call<GitHubUsers> getJavaDevsNairobi();
 
-    @GET("users/{user}?access_token=" + Keys.ACCESS_TOKEN)
+    @GET("users/{user}")
     Call<User> getUserDetail(@Path("user") String user);
 
 }
