@@ -2,6 +2,7 @@ package com.rosen.wasswaderick.nairobijavageeks.view;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -14,26 +15,17 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.rosen.wasswaderick.nairobijavageeks.R;
 import com.rosen.wasswaderick.nairobijavageeks.adapter.GlideApp;
+import com.rosen.wasswaderick.nairobijavageeks.databinding.DeveloperLayoutBinding;
+import com.rosen.wasswaderick.nairobijavageeks.model.JavaGeekGitHubUser;
 import com.rosen.wasswaderick.nairobijavageeks.model.User;
-import com.rosen.wasswaderick.nairobijavageeks.presenter.GitHubUserPresenter;
 import com.rosen.wasswaderick.nairobijavageeks.presenter.UserDetailPresenter;
 
 public class DetailActivity extends AppCompatActivity implements UserDetailView {
 
     ImageView profileImage;
-    TextView name;
-    TextView role;
-    TextView location;
-    TextView followers;
-    TextView following;
-    TextView repositories;
-    TextView bio;
-    TextView htmlURL;
-
     FloatingActionButton share;
 
     PresenterDetailView presenterDetailView;
@@ -46,10 +38,12 @@ public class DetailActivity extends AppCompatActivity implements UserDetailView 
 
     final String USER_DETAILS_KEY = "user";
 
+    DeveloperLayoutBinding binding;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.developer_layout);
+        binding = DataBindingUtil.setContentView(this, R.layout.developer_layout);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -58,16 +52,8 @@ public class DetailActivity extends AppCompatActivity implements UserDetailView 
         progressDialog = new ProgressDialog(DetailActivity.this);
 
         profileImage = findViewById(R.id.profile_image);
-        name = findViewById(R.id.name);
-        role = findViewById(R.id.role);
-        location = findViewById(R.id.location);
-        followers = findViewById(R.id.followers);
-        following = findViewById(R.id.following);
-        repositories = findViewById(R.id.repositories);
-        htmlURL = findViewById(R.id.htmlUrl);
-        bio = findViewById(R.id.bio);
-
         share = findViewById(R.id.share);
+
 
         Intent intent = getIntent();
         Bundle bundle = intent.getBundleExtra("data");
@@ -75,20 +61,11 @@ public class DetailActivity extends AppCompatActivity implements UserDetailView 
         image = bundle.getString("image");
         htmlUrlData = bundle.getString("htmlUrl");
 
-        if (toolbar != null){
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            String usernameHandle = "@" + username;
-            getSupportActionBar().setTitle(usernameHandle);
-        }
-
-        GlideApp
-                .with(getApplicationContext())
-                .asBitmap()
-                .load(image)
-                .placeholder(R.drawable.cat)
-                .centerCrop()
-                .into(profileImage);
-
+        setSupportActionBar(binding.toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        String usernameHandle = "@" + username;
+        getSupportActionBar().setTitle(usernameHandle);
+        
         //load animation for the profile Image
         AnimationSet animationSet = new AnimationSet(true);
         Animation animationZoom = AnimationUtils.loadAnimation(this, R.anim.zoom_in);
@@ -133,23 +110,12 @@ public class DetailActivity extends AppCompatActivity implements UserDetailView 
     public void renderGitHubUsers(User user) {
         dismissProgressDialog();
 
-        userDetails = user;
-        name.setText(user.getName());
+        binding.setUser(user);
 
-        String company = user.getCompany() != null ? "(" + user.getCompany() + ")" : "";
-        String workRole = "Software Developer " + company;
-        String followerData = user.getFollowers() + " followers";
-        String followingData = user.getFollowing() + " following";
-        String publicRepoData = user.getPublicRepos() + " public repositories";
-
-        htmlURL.setText(htmlUrlData);
-
-        role.setText(workRole);
-        location.setText(user.getLocation());
-        followers.setText(followerData);
-        following.setText(followingData);
-        repositories.setText(publicRepoData);
-        bio.setText(user.getBio());
+        JavaGeekGitHubUser gitHubUser = new JavaGeekGitHubUser();
+        gitHubUser.setHtmlUrl(htmlUrlData);
+        gitHubUser.setImage(image);
+        binding.setGithubuser(gitHubUser);
     }
 
     public void shareButtonClickHandler(){
