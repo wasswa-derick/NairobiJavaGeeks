@@ -8,6 +8,7 @@ import com.rosen.wasswaderick.nairobijavageeks.data.db.GitHubUserDao;
 import com.rosen.wasswaderick.nairobijavageeks.data.db.GitHubUserDatabase;
 import com.rosen.wasswaderick.nairobijavageeks.model.GitHubUsers;
 import com.rosen.wasswaderick.nairobijavageeks.model.JavaGeekGitHubUser;
+import com.rosen.wasswaderick.nairobijavageeks.service.GitHubUserAPI;
 import com.rosen.wasswaderick.nairobijavageeks.service.RetrofitGitHubService;
 import com.rosen.wasswaderick.nairobijavageeks.view.GitHubUserView;
 import com.rosen.wasswaderick.nairobijavageeks.view.PresenterView;
@@ -30,17 +31,20 @@ import retrofit2.Response;
  */
 public class GitHubUserPresenter implements PresenterView{
 
-    private RetrofitGitHubService retrofitGitHubService;
+//    private RetrofitGitHubService retrofitGitHubService;
+    private GitHubUserAPI gitHubUserAPI;
     private GitHubUserView gitHubUserView;
 
     private GitHubUserDao gitHubUserDao;
     private ArrayList<JavaGeekGitHubUser> allUsers;
 
-    public GitHubUserPresenter(GitHubUserView gitHubUserView, Application application) {
+    public GitHubUserPresenter(GitHubUserView gitHubUserView, Application application, GitHubUserAPI gitHubUserAPI) {
         this.gitHubUserView = gitHubUserView;
-        if (this.retrofitGitHubService == null) {
-            this.retrofitGitHubService = new RetrofitGitHubService();
-        }
+//        if (this.retrofitGitHubService == null) {
+//            this.retrofitGitHubService = new RetrofitGitHubService();
+//        }
+
+        this.gitHubUserAPI = gitHubUserAPI;
 
         GitHubUserDatabase db = GitHubUserDatabase.getDatabase(application);
         gitHubUserDao = db.gitHubUserDao();
@@ -70,8 +74,7 @@ public class GitHubUserPresenter implements PresenterView{
 
     @Override
     public void fetchNairobiJavaGitHubUsers() {
-        retrofitGitHubService
-                .getGitHubUserAPI()
+        gitHubUserAPI
                 .getJavaDevsNairobi()
                 .enqueue(new Callback<GitHubUsers>() {
                     @Override

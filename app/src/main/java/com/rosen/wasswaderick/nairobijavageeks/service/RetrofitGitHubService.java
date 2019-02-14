@@ -9,7 +9,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitGitHubService {
 
-    Retrofit retrofitService = null;
+    static Retrofit retrofitService = null;
 
 
     /**
@@ -17,7 +17,7 @@ public class RetrofitGitHubService {
      *
      * @return The GitHubUserAPI interface
      */
-    public GitHubUserAPI getGitHubUserAPI() {
+    public static GitHubUserAPI getGitHubUserAPI() {
         Gson gson = new GsonBuilder().setLenient().create();
 
         if (retrofitService == null) {

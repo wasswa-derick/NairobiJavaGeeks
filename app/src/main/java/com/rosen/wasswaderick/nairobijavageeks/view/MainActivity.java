@@ -18,13 +18,17 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
 
+import com.rosen.wasswaderick.nairobijavageeks.BaseApplication;
 import com.rosen.wasswaderick.nairobijavageeks.R;
 import com.rosen.wasswaderick.nairobijavageeks.model.JavaGeekGitHubUser;
 import com.rosen.wasswaderick.nairobijavageeks.adapter.GitHubUsersAdapter;
 import com.rosen.wasswaderick.nairobijavageeks.presenter.GitHubUserPresenter;
+import com.rosen.wasswaderick.nairobijavageeks.service.GitHubUserAPI;
 import com.rosen.wasswaderick.nairobijavageeks.utils.NetworkConnectionDetector;
 
 import java.util.ArrayList;
+
+import javax.inject.Inject;
 
 
 public class MainActivity extends AppCompatActivity implements GitHubUserView, SwipeRefreshLayout.OnRefreshListener{
@@ -48,11 +52,16 @@ public class MainActivity extends AppCompatActivity implements GitHubUserView, S
     //  Broadcast event for internet connectivity
     BroadcastReceiver networkStateReceiver;
 
+    @Inject
+    GitHubUserAPI gitHubUserAPI;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        injectDependency();
 
         roots = findViewById(R.id.roots);
 
@@ -67,7 +76,7 @@ public class MainActivity extends AppCompatActivity implements GitHubUserView, S
         developersCount = findViewById(R.id.developers_count);
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        presenterView = new GitHubUserPresenter(this, getApplication());
+        presenterView = new GitHubUserPresenter(this, getApplication(), gitHubUserAPI);
         progressDialog = new ProgressDialog(MainActivity.this);
         gridLayoutManager = new GridLayoutManager(this, 2);
 
@@ -104,6 +113,11 @@ public class MainActivity extends AppCompatActivity implements GitHubUserView, S
         registerReceiver(networkStateReceiver, new IntentFilter(android.net.ConnectivityManager.CONNECTIVITY_ACTION));
     }
 
+    void injectDependency(){
+        ((BaseApplication) getApplication())
+                .getApplicationComponent()
+                .inject(MainActivity.this);
+    }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {

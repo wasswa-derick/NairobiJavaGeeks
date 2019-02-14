@@ -44,20 +44,6 @@ public class GitHubUsersAdapter extends RecyclerView.Adapter<GitHubUsersAdapter.
         JavaGeekGitHubUser javaGeekGitHubUser = javaGeekGitHubUserList.get(position);
         gitHubUsersViewHolder.bind(javaGeekGitHubUser);
 
-//        String username = "@" + javaGeekGitHubUser.getUsername();
-//        gitHubUsersViewHolder.username.setText(username);
-//        gitHubUsersViewHolder.develop_url.setText(javaGeekGitHubUser.getHtmlUrl());
-//
-//        String imageUrl = javaGeekGitHubUser.getImage();
-//
-//        GlideApp
-//                .with(context)
-//                .asBitmap()
-//                .load(imageUrl)
-//                .placeholder(R.drawable.cat)
-//                .centerCrop()
-//                .into(gitHubUsersViewHolder.profileImage);
-
     }
 
     @Override
