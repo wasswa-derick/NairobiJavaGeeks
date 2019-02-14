@@ -2,6 +2,7 @@ package com.rosen.wasswaderick.nairobijavageeks.model;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -40,10 +41,13 @@ public class JavaGeekGitHubUser implements Parcelable{
     @Expose
     private String htmlUrl;
 
+    @Ignore
     private User details;
 
+    @Ignore
     public JavaGeekGitHubUser(){}
 
+    @Ignore
     public JavaGeekGitHubUser(String image, String username, String company, String url, String htmlUrl, User details) {
         this.image = image;
         this.username = username;
@@ -61,7 +65,7 @@ public class JavaGeekGitHubUser implements Parcelable{
         this.htmlUrl = htmlUrl;
     }
 
-
+    @Ignore
     protected JavaGeekGitHubUser(Parcel in) {
         image = in.readString();
         username = in.readString();
