@@ -25,8 +25,24 @@ android {
         }
 
         debug {
+            applicationIdSuffix ".debug"
+            versionNameSuffix "-debug"
+            debuggable true
+
             //add tests coverage using Jacoco
             testCoverageEnabled true
+        }
+    }
+
+    flavorDimensions "default"
+
+    productFlavors {
+        mock {
+            applicationIdSuffix = ".mock"
+            applicationId "com.rosen.wasswaderick.nairobijavageeks.mock"
+        }
+        prod {
+            applicationId "com.rosen.wasswaderick.nairobijavageeks.prod"
         }
     }
 
