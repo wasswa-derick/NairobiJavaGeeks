@@ -61,7 +61,6 @@ public class JavaGeekGitHubUser implements Parcelable{
         }
     };
 
-
     public String getImage() {
         return image;
     }
@@ -123,4 +122,5 @@ public class JavaGeekGitHubUser implements Parcelable{
         dest.writeString(url);
         dest.writeString(htmlUrl);
     }
+
 }

@@ -40,7 +40,28 @@ The Mockup (wireframes) screens of this application can be found at this URL htt
 1. First change to a directory you want to would like the application to be then clone the GitHub repository.
     > Run the command `git clone https://github.com/wasswa-derick/NairobiJavaGeeks.git`
 2. Launch Android Studio and Import the project from the directory where it was cloned.
-3. Login into GitHub and generate an access token.
-4. Open the ```Keys``` file under the project path ```/main/java/utils/Keys.java``` and replaces ```YOUR GITHUBAPI ACCESS TOKEN``` with your access token.
-5. Run the application.
+3. Run the application.
 
+## Running the tests
+
+Espresso tests can be run using:
+~~~~
+./gradlew connectedCheck
+./gradlew connectedAndroidTest
+~~~~
+
+JUnit tests can be run using one of the following:
+~~~~
+./gradlew test
+./gradlew check
+./gradlew build
+~~~~
+
+Jacoco Tests report (Run both instrumented and unit tests at once).
+~~~~
+./gradlew jacocoTestReport
+~~~~
+
+## Author
+
+* **[Wasswa Derick](https://github.com/wasswa-derick)**

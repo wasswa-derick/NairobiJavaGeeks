@@ -1,8 +1,14 @@
 package com.rosen.wasswaderick.nairobijavageeks.view;
 
 import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Parcelable;
+import android.provider.Settings;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -16,6 +22,7 @@ import com.rosen.wasswaderick.nairobijavageeks.R;
 import com.rosen.wasswaderick.nairobijavageeks.model.JavaGeekGitHubUser;
 import com.rosen.wasswaderick.nairobijavageeks.adapter.GitHubUsersAdapter;
 import com.rosen.wasswaderick.nairobijavageeks.presenter.GitHubUserPresenter;
+import com.rosen.wasswaderick.nairobijavageeks.utils.NetworkConnectionDetector;
 
 import java.util.ArrayList;
 
@@ -25,6 +32,7 @@ public class MainActivity extends AppCompatActivity implements GitHubUserView, S
     TextView developersCount;
     Toolbar toolbar;
     SwipeRefreshLayout swipeRefreshLayout;
+    CoordinatorLayout roots;
 
     GitHubUsersAdapter gitHubUsersAdapter;
     ArrayList<JavaGeekGitHubUser> javaGeekGitHubUserArrayList;
@@ -37,10 +45,36 @@ public class MainActivity extends AppCompatActivity implements GitHubUserView, S
     public final static String RECYCLER_VIEW_STATE_KEY = "recycler_view_state";
     Parcelable listState;
 
+    //  Broadcast event for internet connectivity
+    BroadcastReceiver networkStateReceiver;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        roots = findViewById(R.id.roots);
+        // Network Utility
+        networkStateReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                Boolean connection = new NetworkConnectionDetector(getApplicationContext()).InternetConnectionStatus();
+                if (!connection) {
+                    dismissProgressDialog();
+                    Snackbar.make(roots, R.string.no_internet, Snackbar.LENGTH_LONG)
+                            .setAction(R.string.connect, new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    Intent settingsIntent = new Intent(Settings.ACTION_SETTINGS);
+                                    startActivity(settingsIntent);
+                                }
+                            }).show();
+                }
+            }
+        };
+        registerReceiver(networkStateReceiver, new IntentFilter(android.net.ConnectivityManager.CONNECTIVITY_ACTION));
+
 
         swipeRefreshLayout = findViewById(R.id.swipe_refresh);
         swipeRefreshLayout.setOnRefreshListener(this);
@@ -66,7 +100,6 @@ public class MainActivity extends AppCompatActivity implements GitHubUserView, S
             presenterView.fetchNairobiJavaGitHubUsers();
             showProgressDialog();
         }
-
     }
 
 
@@ -92,9 +125,19 @@ public class MainActivity extends AppCompatActivity implements GitHubUserView, S
     @Override
     protected void onResume() {
         super.onResume();
+        //  register broadcast receive once activity is in the foreground
+        registerReceiver(networkStateReceiver, new IntentFilter(android.net.ConnectivityManager.CONNECTIVITY_ACTION));
+
         if (listState != null) {
             gridLayoutManager.onRestoreInstanceState(listState);
         }
+    }
+
+    @Override
+    protected void onPause() {
+        // disconnect expensive broadcast receiver
+        unregisterReceiver(networkStateReceiver);
+        super.onPause();
     }
 
     @Override

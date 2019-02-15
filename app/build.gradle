@@ -33,7 +33,7 @@ android {
             includeAndroidResources = true
             returnDefaultValues = true
         }
-        animationsDisabled = true
+        animationsDisabled = false
     }
 }
 
