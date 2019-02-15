@@ -1,29 +1,41 @@
 package com.rosen.wasswaderick.nairobijavageeks.model;
 
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+@Entity(tableName = "github_user")
 public class JavaGeekGitHubUser implements Parcelable{
 
+    @ColumnInfo(name = "avatar_url")
     @SerializedName("avatar_url")
     @Expose
     private String image;
 
+    @PrimaryKey
+    @NonNull
+    @ColumnInfo(name = "username")
     @SerializedName("login")
     @Expose
     private String username;
 
+    @ColumnInfo(name = "company")
     @SerializedName("company")
     @Expose
     private String company;
 
+    @ColumnInfo(name = "url")
     @SerializedName("url")
     @Expose
     private String url;
 
+    @ColumnInfo(name = "html_url")
     @SerializedName("html_url")
     @Expose
     private String htmlUrl;
@@ -40,6 +52,15 @@ public class JavaGeekGitHubUser implements Parcelable{
         this.htmlUrl = htmlUrl;
         this.details = details;
     }
+
+    public JavaGeekGitHubUser(String image, String username, String company, String url, String htmlUrl) {
+        this.image = image;
+        this.username = username;
+        this.company = company;
+        this.url = url;
+        this.htmlUrl = htmlUrl;
+    }
+
 
     protected JavaGeekGitHubUser(Parcel in) {
         image = in.readString();
