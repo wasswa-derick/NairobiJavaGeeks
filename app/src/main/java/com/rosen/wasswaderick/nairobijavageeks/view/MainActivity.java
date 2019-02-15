@@ -55,6 +55,32 @@ public class MainActivity extends AppCompatActivity implements GitHubUserView, S
         setContentView(R.layout.activity_main);
 
         roots = findViewById(R.id.roots);
+
+        swipeRefreshLayout = findViewById(R.id.swipe_refresh);
+        swipeRefreshLayout.setOnRefreshListener(this);
+        swipeRefreshLayout.setColorSchemeResources(
+                R.color.colorPrimaryDark,
+                R.color.colorPrimary,
+                R.color.colorAccent);
+
+        recyclerView = findViewById(R.id.developers_list);
+        developersCount = findViewById(R.id.developers_count);
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        presenterView = new GitHubUserPresenter(this, getApplication());
+        progressDialog = new ProgressDialog(MainActivity.this);
+        gridLayoutManager = new GridLayoutManager(this, 2);
+
+        if (savedInstanceState != null) {
+            javaGeekGitHubUserArrayList = new ArrayList<>();
+            javaGeekGitHubUserArrayList = savedInstanceState.getParcelableArrayList(USERS_KEY);
+            renderGitHubUsers(javaGeekGitHubUserArrayList);
+        }else{
+            // Load the Data from the API
+            presenterView.fetchNairobiJavaGitHubUsers();
+            showProgressDialog();
+        }
+
         // Network Utility
         networkStateReceiver = new BroadcastReceiver() {
             @Override
@@ -70,36 +96,12 @@ public class MainActivity extends AppCompatActivity implements GitHubUserView, S
                                     startActivity(settingsIntent);
                                 }
                             }).show();
+
+                    renderGitHubUsers(presenterView.fetchLocalUsers());
                 }
             }
         };
         registerReceiver(networkStateReceiver, new IntentFilter(android.net.ConnectivityManager.CONNECTIVITY_ACTION));
-
-
-        swipeRefreshLayout = findViewById(R.id.swipe_refresh);
-        swipeRefreshLayout.setOnRefreshListener(this);
-        swipeRefreshLayout.setColorSchemeResources(
-                R.color.colorPrimaryDark,
-                R.color.colorPrimary,
-                R.color.colorAccent);
-
-        recyclerView = findViewById(R.id.developers_list);
-        developersCount = findViewById(R.id.developers_count);
-        toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        presenterView = new GitHubUserPresenter(this);
-        progressDialog = new ProgressDialog(MainActivity.this);
-        gridLayoutManager = new GridLayoutManager(this, 2);
-
-        if (savedInstanceState != null) {
-            javaGeekGitHubUserArrayList = new ArrayList<>();
-            javaGeekGitHubUserArrayList = savedInstanceState.getParcelableArrayList(USERS_KEY);
-            renderGitHubUsers(javaGeekGitHubUserArrayList);
-        }else{
-            // Load the Data from the API
-            presenterView.fetchNairobiJavaGitHubUsers();
-            showProgressDialog();
-        }
     }
 
 
@@ -155,6 +157,8 @@ public class MainActivity extends AppCompatActivity implements GitHubUserView, S
 
         String countDevelopers = javaGeekGitHubUsers.size() + " Developers";
         developersCount.setText(countDevelopers);
+
+        presenterView.insertUser(javaGeekGitHubUsers);
 
         // Recycler View On Click Handler
         launchDeveloperDetails();

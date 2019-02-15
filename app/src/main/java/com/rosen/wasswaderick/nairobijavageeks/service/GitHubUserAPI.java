@@ -1,7 +1,10 @@
 package com.rosen.wasswaderick.nairobijavageeks.service;
 
 import com.rosen.wasswaderick.nairobijavageeks.model.GitHubUsers;
+import com.rosen.wasswaderick.nairobijavageeks.model.JavaGeekGitHubUser;
 import com.rosen.wasswaderick.nairobijavageeks.model.User;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -19,5 +22,7 @@ public interface GitHubUserAPI {
 
     @GET("users/{user}")
     Call<User> getUserDetail(@Path("user") String user);
+
+    List<JavaGeekGitHubUser> getLocalStorageUsers();
 
 }
